@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: pf-postgres
+    environment:
+      POSTGRES_DB: pulseflow
+      POSTGRES_USER: pulseflow
+      POSTGRES_PASSWORD: pulseflow
+    ports: [ "5432:5432" ]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isReady -U pulseflow -d pulseflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: pf-redis
+    ports: [ "6379:6379" ]
+
+  kafka:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.9
+    container_name: pf-kafka
+    command: ["redpanda", "start", "--overprovisioned", "--smp=1", "--memory=512M", "--reserve-memory=0M", "--node-id=0", "--check=false"]
+    ports:
+      - "9092:9092"
+      - "9644:9644"
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster info || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:

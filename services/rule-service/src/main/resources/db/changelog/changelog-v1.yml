@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Harsha
+      changes:
+        - sqlFile:
+            path: migrations/rules_v1.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
