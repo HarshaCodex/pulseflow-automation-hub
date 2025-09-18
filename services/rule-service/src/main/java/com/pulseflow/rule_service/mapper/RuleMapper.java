@@ -6,6 +6,8 @@ import com.pulseflow.rule_service.dto.RuleResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface RuleMapper {
 
@@ -15,5 +17,7 @@ public interface RuleMapper {
     Rule ruleRequestToRule(RuleRequest ruleRequest);
 
     RuleResponse ruleToRuleResponse(Rule rule);
+
+    List<RuleResponse> ruleListToRulesResponseList(List<Rule> rules);
 
 }

@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -25,6 +27,16 @@ public class RuleService {
             return ruleMapper.ruleToRuleResponse(rule);
         } catch (Exception e) {
             log.error("Exception occurred while saving rule:{} to database:", ruleRequest, e);
+            throw e;
+        }
+    }
+
+    public List<RuleResponse> getRules() {
+        try {
+            List<Rule> rules = ruleRepository.findAll();
+            return ruleMapper.ruleListToRulesResponseList(rules);
+        } catch (Exception e) {
+            log.error("Exception occurred while fetching rules from database:", e);
             throw e;
         }
     }
