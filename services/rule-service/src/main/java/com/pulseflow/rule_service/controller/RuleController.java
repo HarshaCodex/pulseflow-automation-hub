@@ -1,6 +1,5 @@
 package com.pulseflow.rule_service.controller;
 
-import com.pulseflow.rule_service.domain.Rule;
 import com.pulseflow.rule_service.dto.RuleRequest;
 import com.pulseflow.rule_service.dto.RuleResponse;
 import com.pulseflow.rule_service.service.RuleService;
